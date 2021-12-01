@@ -12,6 +12,7 @@ import Header from './pages/Header/Header';
 import Login from './pages/Login/Login/Login';
 import AdminAddEvent from './pages/AdminAddEvent/AdminAddEvent';
 import AdminShowEvent from './pages/AdminShowEvent/AdminShowEvent';
+import RegisteredEvent from './pages/RegisteredEvent/RegisteredEvent';
 function App() {
   return (
     <Router>
@@ -28,6 +29,9 @@ function App() {
         </Route>
         <Route path="/adminShowEvent">
           <AdminShowEvent></AdminShowEvent>
+        </Route>
+        <Route path="/registeredEvent">
+          <RegisteredEvent></RegisteredEvent>
         </Route>
         <Route exact path="/">
           <Home></Home>
