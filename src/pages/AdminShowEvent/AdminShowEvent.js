@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 const AdminShowEvent = () => {
     return (
@@ -40,7 +41,10 @@ const AdminShowEvent = () => {
                         </tbody>
                     </table>
                 </section>
-                <button className="btn btn-primary">Add Event</button>
+                <Link to="/adminAddEvent">
+
+                    <button className="btn btn-primary">Add Event</button>
+                </Link>
             </section>
         </>
     );
