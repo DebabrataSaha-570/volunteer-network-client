@@ -1,15 +1,21 @@
-import React from 'react';
-
+import React, { useState } from 'react';
+import './Login.css'
 const Login = () => {
+    const [buttonStyle, setButtonStyle] = useState('login-button')
+
     return (
-        <section className="position-absolute top-50 start-50 translate-middle">
 
-            <div className="d-flex justify-content-center align-items-center border border-1 rounded-pill px-3 py-1">
-                <img src="https://img.icons8.com/color/48/000000/google-logo.png" />
-                <h4 className="ps-2">Continue with Google</h4>
-            </div>
+        <>
+            <section className="login-box">
+                <h3>Login</h3>
+                <button onClick={() => setButtonStyle('login-clicked-button')} className={buttonStyle}>
+                    <img src="https://img.icons8.com/color/48/000000/google-logo.png" />
+                    <b className="">Continue with Google</b>
+                </button>
+                <p>Don't have an account? create one</p>
+            </section>
+        </>
 
-        </section>
     );
 };
 

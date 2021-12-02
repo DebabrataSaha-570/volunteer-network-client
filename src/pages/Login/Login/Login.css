@@ -1,0 +1,23 @@
+
+.login-button{
+    border-radius: 30px;
+    padding: 7px 50px;
+    background-color: white;
+    border: 1px solid gray;
+}
+.login-clicked-button{
+    border: 2px solid black;
+    border-radius: 30px;
+    padding: 7px 50px;
+    background-color: white;
+}
+.login-clicked-button img{
+    margin-right: 20px;
+}
+.login-button img{
+    margin-right: 20px;
+}
+.login-box{
+   text-align: center;
+   margin-top: 100px;
+}
