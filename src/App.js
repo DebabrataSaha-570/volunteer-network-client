@@ -13,6 +13,7 @@ import Login from './pages/Login/Login/Login';
 import AdminAddEvent from './pages/AdminAddEvent/AdminAddEvent';
 import AdminShowEvent from './pages/AdminShowEvent/AdminShowEvent';
 import RegisteredEvent from './pages/RegisteredEvent/RegisteredEvent';
+import RegisterVolunteer from './pages/RegisterVolunteer/RegisterVolunteer';
 function App() {
   return (
     <Router>
@@ -32,6 +33,9 @@ function App() {
         </Route>
         <Route path="/registeredEvent">
           <RegisteredEvent></RegisteredEvent>
+        </Route>
+        <Route path="/registerVolunteer/:id">
+          <RegisterVolunteer></RegisterVolunteer>
         </Route>
         <Route exact path="/">
           <Home></Home>
