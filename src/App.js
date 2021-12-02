@@ -14,37 +14,47 @@ import AdminAddEvent from './pages/AdminAddEvent/AdminAddEvent';
 import AdminShowEvent from './pages/AdminShowEvent/AdminShowEvent';
 import RegisteredEvent from './pages/RegisteredEvent/RegisteredEvent';
 import RegisterVolunteer from './pages/RegisterVolunteer/RegisterVolunteer';
+import AuthProvider from './Context/AuthProvider';
+import PrivateRoute from './pages/PrivateRoute/PrivateRoute';
 function App() {
   return (
-    <Router>
-      <Header></Header>
-      <Switch>
-        <Route path="/home">
-          <Home></Home>
-        </Route>
-        <Route path="/login">
-          <Login></Login>
-        </Route>
-        <Route path="/adminAddEvent">
-          <AdminAddEvent></AdminAddEvent>
-        </Route>
-        <Route path="/adminShowEvent">
-          <AdminShowEvent></AdminShowEvent>
-        </Route>
-        <Route path="/registeredEvent">
-          <RegisteredEvent></RegisteredEvent>
-        </Route>
-        <Route path="/registerVolunteer/:id">
-          <RegisterVolunteer></RegisterVolunteer>
-        </Route>
-        <Route exact path="/">
-          <Home></Home>
-        </Route>
-        <Route path="*">
-          <NotFound></NotFound>
-        </Route>
-      </Switch>
-    </Router>
+    <AuthProvider>
+
+
+      <Router>
+        <Header></Header>
+        <Switch>
+          <Route path="/home">
+            <Home></Home>
+          </Route>
+          <Route path="/login">
+            <Login></Login>
+          </Route>
+          <PrivateRoute path="/adminAddEvent">
+            <AdminAddEvent></AdminAddEvent>
+          </PrivateRoute>
+          <PrivateRoute path="/adminShowEvent">
+            <AdminShowEvent></AdminShowEvent>
+          </PrivateRoute>
+
+          <PrivateRoute path="/registeredEvent">
+            <RegisteredEvent></RegisteredEvent>
+          </PrivateRoute>
+
+          <PrivateRoute path="/registerVolunteer/:id">
+            <RegisterVolunteer></RegisterVolunteer>
+          </PrivateRoute>
+
+          <Route exact path="/">
+            <Home></Home>
+          </Route>
+
+          <Route path="*">
+            <NotFound></NotFound>
+          </Route>
+        </Switch>
+      </Router>
+    </AuthProvider>
   );
 }
 

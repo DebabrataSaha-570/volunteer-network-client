@@ -1,7 +1,9 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-
+import useAuth from '../../Hooks/useAuth';
 const Header = () => {
+    const { user, logOut } = useAuth()
+
     return (
         <>
             <nav className="navbar navbar-expand-lg navbar-light ">
@@ -15,9 +17,18 @@ const Header = () => {
                             <li className="nav-item">
                                 <Link to="/home" className="nav-link active" aria-current="page" >Home</Link>
                             </li>
-                            <li className="nav-item">
-                                <Link to="/login" className="nav-link active" aria-current="page" >Login</Link>
+                            {user.displayName && <li className="nav-item">
+                                <a className="nav-link active" aria-current="page" ><strong>{user.displayName}</strong></a>
+                            </li>}
+                            {user.displayName ? <li className="nav-item">
+                                <a onClick={logOut} className="nav-link active" aria-current="page" >LogOut</a>
                             </li>
+
+                                :
+                                <li className="nav-item">
+                                    <Link to="/login" className="nav-link active" aria-current="page" >Login</Link>
+                                </li>
+                            }
                             <li className="nav-item">
                                 <Link to="/" className="nav-link active" aria-current="page" >Donation</Link>
                             </li>

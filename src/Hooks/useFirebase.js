@@ -1,25 +1,17 @@
 import { useState, useEffect } from 'react'
 import { getAuth, signInWithPopup, GoogleAuthProvider, onAuthStateChanged, signOut } from "firebase/auth";
+import InitializeAuthentication from '../pages/Login/Firebase/firebase.init';
+InitializeAuthentication()
 
 const useFirebase = () => {
     const [user, setUser] = useState({})
     const [error, setError] = useState('')
     const auth = getAuth()
     const googleProvider = new GoogleAuthProvider();
-
+    // googleProvider.addScope('email');
     const signInUsingGoogle = () => {
-        signInWithPopup(auth, googleProvider)
-            .then((result) => {
+        return signInWithPopup(auth, googleProvider);
 
-                const user = result.user;
-                setUser(user)
-                console.log(user)
-            }).catch((error) => {
-                const errorCode = error.code;
-                const errorMessage = error.message;
-                setError(errorMessage)
-                console.log(errorCode, errorMessage)
-            });
     }
     const logOut = () => {
         signOut(auth).then(() => {
@@ -42,6 +34,8 @@ const useFirebase = () => {
         error,
         signInUsingGoogle,
         logOut,
+        setUser,
+        setError
 
 
 
