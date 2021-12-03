@@ -4,7 +4,7 @@ import './Login.css'
 import useAuth from '../../../Hooks/useAuth';
 const Login = () => {
     const [buttonStyle, setButtonStyle] = useState('login-button')
-    const { user, signInUsingGoogle, error, setUser, setError } = useAuth()
+    const { user, signInUsingGoogle, error, setUser, setError, isLoading, setIsLoading } = useAuth()
     const location = useLocation()
     const history = useHistory()
     const redirect_uri = location.state?.from || '/home'
@@ -23,7 +23,9 @@ const Login = () => {
                 const errorMessage = error.message;
                 setError(errorMessage)
                 console.log(errorCode, errorMessage)
-            });
+            })
+            .finally(() => setIsLoading(false))
+
     }
     return (
 

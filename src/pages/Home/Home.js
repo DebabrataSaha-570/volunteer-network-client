@@ -11,7 +11,7 @@ const Home = () => {
 
             })
     }, [])
-    console.log('events', events)
+    // console.log('events', events)
     return (
         <>
             {events.length > 0 ? <section className="container">
@@ -26,7 +26,7 @@ const Home = () => {
 
 
                     {
-                        events.map(event => <SingleEvent data={event}> </SingleEvent>)
+                        events.map(event => <SingleEvent data={event} key={event._id}> </SingleEvent>)
                     }
 
 

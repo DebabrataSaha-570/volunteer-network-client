@@ -32,7 +32,7 @@ const RegisteredEvent = () => {
 
     return (
         <>
-            <section className="container mt-5">
+            <section className="container my-5">
                 <div className="row row-cols-1 row-cols-md-4 g-4">
 
                     {
