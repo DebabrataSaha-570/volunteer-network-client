@@ -22,7 +22,7 @@ const Header = () => {
                                 <a className="nav-link active" aria-current="page" ><strong>{user.displayName}</strong></a>
                             </li>}
                             {user.displayName ? <li className="nav-item">
-                                <a onClick={logOut} className="nav-link active" aria-current="page" >LogOut</a>
+                                <a onClick={logOut} className="nav-link active" aria-current="page" >Logout</a>
                             </li>
 
                                 :
