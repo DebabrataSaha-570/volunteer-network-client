@@ -1,43 +1,50 @@
-import React from 'react';
-import 'date-fns';
-import Grid from '@material-ui/core/Grid';
-import DateFnsUtils from '@date-io/date-fns';
-import {
-    MuiPickersUtilsProvider,
-
-    KeyboardDatePicker,
-} from '@material-ui/pickers';
+import React, { useState, useEffect } from 'react';
+import RegisteredSingleEvent from '../RegisteredSingleEvent/RegisteredSingleEvent'
 const RegisteredEvent = () => {
-    const [selectedDate, setSelectedDate] = React.useState(new Date().toLocaleString());
-    // const [selectedDate, setSelectedDate] = React.useState(new Date().toISOString().slice(0, 10));
-    // const [selectedDate, setSelectedDate] = React.useState(new Date('2014-08-18T21:11:54'));
+    const [registerEvents, setRegisterEvents] = useState([])
+    useEffect(() => {
+        fetch('http://localhost:5000/allRegisteredEvents')
+            .then(res => res.json())
+            .then(data => {
+                setRegisterEvents(data)
+            })
+    }, [])
+    const handleCancle = (id) => {
+        console.log(id)
+        const confirmation = window.confirm('Are you sure, you want to cancel this event? ')
+        if (confirmation) {
+            fetch(`http://localhost:5000/deleteEvent/${id}`, {
+                method: 'DELETE'
+            })
+                .then(res => res.json())
+                .then(data => {
+                    console.log(data)
+                    if (data.deletedCount > 0) {
+                        alert('Event canceled successfully')
+                        const newEvents = registerEvents.filter(event => event._id !== id)
+                        setRegisterEvents(newEvents)
+                    }
+                })
+        }
 
-    const handleDateChange = (date) => {
-        setSelectedDate(date);
-    };
-    console.log(selectedDate)
+
+    }
+
     return (
-        <div>
-            <h3>This is registered event component</h3>
+        <>
+            <section className="container mt-5">
+                <div className="row row-cols-1 row-cols-md-4 g-4">
 
-            <MuiPickersUtilsProvider utils={DateFnsUtils}>
-                <Grid container justifyContent="space-around">
+                    {
+                        registerEvents.map(event => <RegisteredSingleEvent handleCancle={handleCancle} key={event._id} event={event}> </RegisteredSingleEvent>)
+                    }
 
-                    <KeyboardDatePicker
-                        margin="normal"
-                        id="date-picker-dialog"
-                        label="Date picker dialog"
-                        format="MM/dd/yyyy"
-                        value={selectedDate}
-                        onChange={handleDateChange}
-                        KeyboardButtonProps={{
-                            'aria-label': 'change date',
-                        }}
-                    />
 
-                </Grid>
-            </MuiPickersUtilsProvider>
-        </div>
+
+
+                </div>
+            </section>
+        </>
     );
 };
 

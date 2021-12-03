@@ -45,7 +45,8 @@ const RegisterVolunteer = () => {
         const emailValue = emailRef.current.value;
         const eventNameValue = eventNameRef.current.value;
         const eventDescriptionValue = eventDescriptionRef.current.value;
-        const registration = { name: nameValue, email: emailValue, eventName: eventNameValue, eventDescription: eventDescriptionValue, date: selectedDate }
+        const eventImage = registeredEvent?.image;
+        const registration = { name: nameValue, email: emailValue, eventName: eventNameValue, eventDescription: eventDescriptionValue, date: selectedDate, image: eventImage }
         console.log(registration)
 
         fetch('http://localhost:5000/registeredEvent', {
@@ -67,7 +68,7 @@ const RegisterVolunteer = () => {
     }
     return (
         <>
-            <section className="w-50 mx-auto my-5 p-5">
+            {registeredEvent ? <section className="w-50 mx-auto my-5 p-5">
                 <div className="d-flex justify-content-center mb-3">
                     <h3>Register for this event</h3>
                 </div>
@@ -110,6 +111,13 @@ const RegisterVolunteer = () => {
                     <input type="submit" className="btn btn-primary" value="Registration" />
                 </form>
             </section>
+                :
+                <div className="d-flex justify-content-center">
+                    <div className="spinner-border text-primary" role="status">
+                        <span className="visually-hidden">Loading...</span>
+                    </div>
+                </div>
+            }
         </>
     );
 };
