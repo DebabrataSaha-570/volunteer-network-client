@@ -14,7 +14,7 @@ const Home = () => {
     // console.log('events', events)
     return (
         <>
-            {events.length > 0 ? <section className="container">
+            <section className="container">
 
                 <div className="d-flex justify-content-center my-3">
                     <h2>I GROW BY HELPING PEOPLE IN NEED.</h2>
@@ -22,7 +22,7 @@ const Home = () => {
                 </div>
 
                 {/* cards */}
-                <div className="row row-cols-1 row-cols-md-4 g-4">
+                {events.length > 0 ? <div className="row row-cols-1 row-cols-md-4 g-4 mb-5">
 
 
                     {
@@ -32,14 +32,15 @@ const Home = () => {
 
 
                 </div>
-            </section>
-                :
-                <div className="d-flex justify-content-center">
-                    <div className="spinner-border text-primary" role="status">
-                        <span className="visually-hidden">Loading...</span>
+                    :
+                    <div className="d-flex justify-content-center">
+                        <div className="spinner-border text-primary" role="status">
+                            <span className="visually-hidden">Loading...</span>
+                        </div>
                     </div>
-                </div>
-            }
+                }
+            </section>
+
         </>
     );
 };
