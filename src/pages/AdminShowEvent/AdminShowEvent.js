@@ -5,7 +5,7 @@ const AdminShowEvent = () => {
     const [registeredVolunteer, setRegisteredVolunteer] = useState([])
 
     useEffect(() => {
-        fetch('http://localhost:5000/allRegisteredEvents')
+        fetch('https://limitless-beyond-04519.herokuapp.com/allRegisteredEvents')
             .then(res => res.json())
             .then(data => {
                 setRegisteredVolunteer(data)
@@ -15,7 +15,7 @@ const AdminShowEvent = () => {
         console.log(id)
         const confirmation = window.confirm('Are you sure , you want to remove this volunteer?')
         if (confirmation) {
-            fetch(`http://localhost:5000/deleteEvent/${id}`, {
+            fetch(`https://limitless-beyond-04519.herokuapp.com/deleteEvent/${id}`, {
                 method: 'DELETE'
             })
                 .then(res => res.json())

@@ -7,7 +7,7 @@ const Header = () => {
 
     return (
         <>
-            <nav className="volunteer-navbar navbar navbar-expand-lg navbar-light ">
+            <nav className="volunteer-navbar   navbar navbar-expand-lg navbar-light ">
                 <div className="container">
                     <Link className="navbar-brand" to="/">
                         <img src="https://i.ibb.co/XD0V3g8/Group-1329.png" alt="" width="130" height="40" />

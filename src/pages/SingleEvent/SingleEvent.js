@@ -6,7 +6,7 @@ const SingleEvent = (props) => {
     const [events, setEvents] = useState([])
 
     useEffect(() => {
-        fetch('http://localhost:5000/allEvents')
+        fetch('https://limitless-beyond-04519.herokuapp.com/allEvents')
             .then(res => res.json())
             .then(data => {
                 setEvents(data)

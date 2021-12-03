@@ -15,7 +15,7 @@ const AdminAddEvent = () => {
         const eventData = { name: nameValue, event: eventValue, image: imageValue }
         setEvent(eventData)
         // console.log(eventData)
-        fetch('http://localhost:5000/addEvent', {
+        fetch('https://limitless-beyond-04519.herokuapp.com/addEvent', {
             method: 'POST',
             body: JSON.stringify(event),
             headers: {

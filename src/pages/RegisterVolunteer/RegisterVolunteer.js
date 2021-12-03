@@ -22,7 +22,7 @@ const RegisterVolunteer = () => {
     // const [selectedDate, setSelectedDate] = React.useState(new Date('2014-08-18T21:11:54'));
     const { user } = useAuth()
     useEffect(() => {
-        fetch(`http://localhost:5000/singleEvent/${id}`)
+        fetch(`https://limitless-beyond-04519.herokuapp.com/singleEvent/${id}`)
             .then(res => res.json())
             .then(data => {
                 setRegisteredEvent(data)
@@ -49,7 +49,7 @@ const RegisterVolunteer = () => {
         const registration = { name: nameValue, email: emailValue, eventName: eventNameValue, eventDescription: eventDescriptionValue, date: selectedDate, image: eventImage }
         console.log(registration)
 
-        fetch('http://localhost:5000/registeredEvent', {
+        fetch('https://limitless-beyond-04519.herokuapp.com/registeredEvent', {
             method: 'POST',
             body: JSON.stringify(registration),
             headers: {
@@ -68,7 +68,7 @@ const RegisterVolunteer = () => {
     }
     return (
         <>
-            {registeredEvent ? <section className="w-50 mx-auto my-5 p-5">
+            {registeredEvent ? <section className="w-50 mx-auto my-2 p-5">
                 <div className="d-flex justify-content-center mb-3">
                     <h3>Register for this event</h3>
                 </div>

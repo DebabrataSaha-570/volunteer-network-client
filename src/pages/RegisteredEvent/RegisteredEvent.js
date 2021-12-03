@@ -3,7 +3,7 @@ import RegisteredSingleEvent from '../RegisteredSingleEvent/RegisteredSingleEven
 const RegisteredEvent = () => {
     const [registerEvents, setRegisterEvents] = useState([])
     useEffect(() => {
-        fetch('http://localhost:5000/allRegisteredEvents')
+        fetch('https://limitless-beyond-04519.herokuapp.com/allRegisteredEvents')
             .then(res => res.json())
             .then(data => {
                 setRegisterEvents(data)
@@ -13,7 +13,7 @@ const RegisteredEvent = () => {
         console.log(id)
         const confirmation = window.confirm('Are you sure, you want to cancel this event? ')
         if (confirmation) {
-            fetch(`http://localhost:5000/deleteEvent/${id}`, {
+            fetch(`https://limitless-beyond-04519.herokuapp.com/deleteEvent/${id}`, {
                 method: 'DELETE'
             })
                 .then(res => res.json())
