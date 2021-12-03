@@ -1,34 +1,69 @@
+import { Button } from '@material-ui/core';
 import React, { useEffect, useState, useRef } from 'react';
-import { useParams } from 'react-router';
+import { useParams, useHistory } from 'react-router';
+import { Redirect } from 'react-router-dom';
 import useAuth from '../../Hooks/useAuth';
+import 'date-fns';
+import Grid from '@material-ui/core/Grid';
+import DateFnsUtils from '@date-io/date-fns';
+import {
+    MuiPickersUtilsProvider,
+
+    KeyboardDatePicker,
+} from '@material-ui/pickers';
 
 const RegisterVolunteer = () => {
     let { id } = useParams()
+    let history = useHistory()
+
     const [registeredEvent, setRegisteredEvent] = useState({})
+    const [selectedDate, setSelectedDate] = React.useState(new Date().toLocaleString());
+    // const [selectedDate, setSelectedDate] = React.useState(new Date().toISOString().slice(0, 10));
+    // const [selectedDate, setSelectedDate] = React.useState(new Date('2014-08-18T21:11:54'));
     const { user } = useAuth()
     useEffect(() => {
         fetch(`http://localhost:5000/singleEvent/${id}`)
             .then(res => res.json())
             .then(data => {
-                console.log(data)
                 setRegisteredEvent(data)
             })
     }, [])
     const nameRef = useRef()
-    const eventRef = useRef()
-    const imageRef = useRef()
+    const emailRef = useRef()
+    const eventNameRef = useRef()
+
+    const eventDescriptionRef = useRef()
+
+    const handleDateChange = (date) => {
+        setSelectedDate(date);
+    };
+    // console.log(selectedDate)
 
     const handleAddRegistration = (e) => {
         e.preventDefault()
         const nameValue = nameRef.current.value;
-        const eventValue = eventRef.current.value;
+        const emailValue = emailRef.current.value;
+        const eventNameValue = eventNameRef.current.value;
+        const eventDescriptionValue = eventDescriptionRef.current.value;
+        const registration = { name: nameValue, email: emailValue, eventName: eventNameValue, eventDescription: eventDescriptionValue, date: selectedDate }
+        console.log(registration)
 
+        fetch('http://localhost:5000/registeredEvent', {
+            method: 'POST',
+            body: JSON.stringify(registration),
+            headers: {
+                'Content-type': 'application/json'
+            },
 
-        const eventData = { name: nameValue, event: eventValue }
-        console.log(eventData)
-
-
-
+        })
+            .then(res => res.json())
+            .then(data => {
+                console.log(data)
+                if (data.insertedId) {
+                    alert('Registration Completed')
+                    history.replace('/registeredEvent')
+                }
+            })
     }
     return (
         <>
@@ -43,18 +78,35 @@ const RegisterVolunteer = () => {
                     </div>
                     <div className="mb-3">
                         <label for="exampleInputEmail1" className="form-label">Email</label>
-                        <input ref={nameRef} value={user.email || user?.reloadUserInfo?.providerUserInfo[0].email || ''} placeholder="Event Name" type="text" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" />
+                        <input ref={emailRef} value={user.email || user?.reloadUserInfo?.providerUserInfo[0].email || ''} placeholder="Event Name" type="text" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" />
                     </div>
                     <div className="mb-3">
                         <label for="exampleInputEmail1" className="form-label">Event Name</label>
-                        <input ref={nameRef} value={registeredEvent.name || ''} placeholder="Event Name" type="text" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" />
+                        <input ref={eventNameRef} value={registeredEvent.name || ''} placeholder="Event Name" type="text" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" />
                     </div>
                     <div className="mb-3">
                         <label for="exampleEventDescription" className="form-label">Event Description</label>
-                        <textarea ref={eventRef} value={registeredEvent.event || ''} className="form-control" placeholder="Event Description" id="exampleEventDescription" rows="5"></textarea>
+                        <textarea ref={eventDescriptionRef} value={registeredEvent.event || ''} className="form-control" placeholder="Event Description" id="exampleEventDescription" rows="5"></textarea>
                     </div>
 
+                    <MuiPickersUtilsProvider utils={DateFnsUtils}>
 
+
+                        <KeyboardDatePicker
+                            margin="normal"
+                            id="date-picker-dialog"
+                            label="Date picker dialog"
+                            format="MM/dd/yyyy"
+                            value={selectedDate}
+                            onChange={handleDateChange}
+                            KeyboardButtonProps={{
+                                'aria-label': 'change date',
+                            }}
+                        />
+
+
+                    </MuiPickersUtilsProvider>
+                    <br />
                     <input type="submit" className="btn btn-primary" value="Registration" />
                 </form>
             </section>
